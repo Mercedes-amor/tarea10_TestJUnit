@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+  <head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>MasterMind</title>
+  </head>
+  <body>
+    <h1>MasterMind</h1>
+    Estado de juego:
+    <span th:text="${estadoJuego}">estado</span>
+    <br /><br />
+    Nuevo intento:
+    <form
+      method="post"
+      action="#"
+      th:action="@{/juego}"
+      th:object="${formInfo}"
+    >
+      <input type="text" id="intento" th:field="*{intento}" />
+      <input type="submit" value="Enviar" />
+    </form>
+    Lista de intentos:
+    <table border="1">
+      <th>Intento</th>
+      <th>Bien colocados</th>
+      <th>Mal colocados</th>
+      <tr th:each="intento:${listaIntentos}">
+        <td th:text="${intento.combinacion}">comb</td>
+        <td th:text="${intento.bienColocados}">bienColocados</td>
+        <td th:text="${intento.malColocados}">malColocados</td>
+      </tr>
+    </table>
+    <br />
+
+    <!-- Intentos restantes -->
+    <div th:if="${estadoJuego == 'JUGANDO'}" style="color: rgb(39, 14, 153)">
+      <p>Te quedan <span th:text="${intentosRestantes}"></span> intentos</p>
+      
+    </div>
+
+    <!-- Mensajes de error -->
+    <div th:if="${mensajeError != ''}" style="color: red">
+      <p th:text="${mensajeError}"></p>
+    </div>
+
+    <!-- Mensajes de derrota o victoria -->
+    <p th:if="${estadoJuego == 'GANO'}" style="color: green;">¡Felicidades, has ganado!</p>
+    <p th:if="${estadoJuego == 'PERDIO'}" style="color: red;">¡Lo siento, has perdido! Otra vez será.</p>
+
+
+    <a th:href="@{/}">Inicio</a><br />
+  </body>
+</html>
