@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+  <head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link href="/webjars/bootstrap/css/bootstrap.min.css" rel="stylesheet" />
+    <script src="/webjars/bootstrap/js/bootstrap.bundle.min.js"></script>
+
+    <title>Tarea 6-Mercedes Amor</title>
+  </head>
+  <body class="card-body">
+    <h1>Listado de empleados</h1>
+
+    <table class="table table-success table-striped">
+      <thead>
+        <tr>
+          <th>ID</th>
+          <th>Nombre</th>
+          <th>Email</th>
+          <th>Salario</th>
+          <th>En Activo</th>
+          <th>Género</th>
+          <th>Editar</th>
+          <th>Borrar</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr th:each="empleado : ${listaEmpleados}">
+          <td th:text="${empleado.id}">Id</td>
+          <td>
+            <a
+              th:href="@{/listone/{id}(id=${empleado.id})}"
+              th:text="${empleado.nombre}"
+              >nombre</a
+            >
+          </td>
+          <td th:text="${empleado.email}">email@gmail.com</td>
+          <td th:text="${empleado.salario}">0</td>
+          <td th:text="${empleado.enActivo}">bool</td>
+          <td th:text="${empleado.genero}">genero</td>
+          <td>
+            <a
+              class="btn btn-primary"
+              th:href="@{/edit/{id}(id=${empleado.id})}"
+              >Editar</a
+            >
+          </td>
+          <td>
+            <a
+              class="btn btn-danger"
+              th:href="@{/borrar/{id}(id=${empleado.id})}"
+              >Borrar</a
+            >
+          </td>
+        </tr>
+      </tbody>
+    </table>
+    <p th:if="${msg!=null}">Error: <span th:text="${msg}">err</span></p>
+
+    <a class="btn btn-warning" th:href="@{/add}">Nuevo empleado</a><br />
+  </br>
+    <a th:href="@{/}">Inicio</a><br />
+  </body>
+</html>
