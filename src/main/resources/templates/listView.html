@@ -11,16 +11,50 @@
   </head>
   <body class="card-body">
     <h1>Listado de empleados</h1>
+    <br>
 
+      <!-- FORMULARIO BÚSQUEDA -->
+    <form method="post" action="#" th:action="@{/findByName}" class="mb-3">
+      <label>Buscar por nombre:
+          <input type="text" name="busqueda" th:value="${nombre}" />
+      </label>
+      <input type="submit" value="Buscar" class="btn btn-primary"/>
+  </form>
+
+    <!-- BÚSQUEDA POR GÉNERO -->
+     <!-- cambiamos la linea del th:selected porque nos daba error, no quedaba
+     marcada la opción seleccionada -->
+    <label>Buscar por género:</label>
+    <select id="genero" onChange="changeGenero();">
+       <option value="">Todos</option>
+      <option th:each="gen : ${T(com.example.app.domain.Genero).values()}"
+         th:value="${gen}" th:text="${gen}"
+         th:selected="${gen.name() == generoSeleccionado?.name()}"></option>
+    </select>
+    
+    <script>
+         function changeGenero(){
+          const select = document.getElementById("genero");
+          if (select.value == "") window.location.href = "/";
+           else window.location.href = "/findByGenero/"+select.value;
+    }
+    </script>
+    <br>
+
+    <!-- RESETAR BÚSQUEDA -->
+    <br>
+  <form method="get" action="#" th:action="@{/list}">
+     <input type="submit" value="Resetear" class="btn btn-success"/>
+  </form>
+    <br>
+
+    <!-- TABLA EMPELADOS -->
     <table class="table table-success table-striped">
       <thead>
         <tr>
           <th>ID</th>
           <th>Nombre</th>
-          <th>Email</th>
-          <th>Salario</th>
           <th>En Activo</th>
-          <th>Género</th>
           <th>Editar</th>
           <th>Borrar</th>
         </tr>
@@ -35,10 +69,7 @@
               >nombre</a
             >
           </td>
-          <td th:text="${empleado.email}">email@gmail.com</td>
-          <td th:text="${empleado.salario}">0</td>
           <td th:text="${empleado.enActivo}">bool</td>
-          <td th:text="${empleado.genero}">genero</td>
           <td>
             <a
               class="btn btn-primary"
@@ -60,6 +91,10 @@
 
     <a class="btn btn-warning" th:href="@{/add}">Nuevo empleado</a><br />
   </br>
+  <div th:if ="${txtErr != null}"
+  class="alert alert-warning">
+    <p th:text ="${txtErr}">Texto de error</p>
+</div>
     <a th:href="@{/}">Inicio</a><br />
   </body>
 </html>

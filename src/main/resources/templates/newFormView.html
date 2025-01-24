@@ -42,6 +42,10 @@
         <button type="submit" class="btn btn-primary">Enviar</button>
     </form>
     </br>
+    <div th:if="${textErr != null}"
+    class="alert alert-warning" role="alert">
+        <p th:text="${textErr}">Texto de error</p>
+    </div>
     <a th:href="@{/}" class="btn btn-secondary ms-2">Inicio</a>
 
 </body>
