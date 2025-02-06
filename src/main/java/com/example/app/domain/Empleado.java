@@ -1,8 +1,14 @@
 package com.example.app.domain;
 
-import javax.validation.constraints.Email;
-import javax.validation.constraints.NotNull;
 
+
+
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.validation.constraints.Email;
+import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -10,12 +16,16 @@ import lombok.NoArgsConstructor;
 
 @Data
 @AllArgsConstructor
-@NoArgsConstructor
-//Cuando comparamos con indexOf dos instancias de Empleado se compara el id
+@NoArgsConstructor 
 @EqualsAndHashCode(of = "id")
+@Entity //Declara que va a ser una entidad de la base de datos con nombre Empleado
 public class Empleado {
 
-    @NotNull
+    //@Id es obligatorio e indica que es la Primary Key de la entidad Empleado
+    //Obligatoriamente es not null y único
+    //Podríamos haberlo puesto a dni, matrícula, códigoCliente, etc
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY) //Genera automáticamente el id autoincrementando
     private Long id;
     @NotNull
     private String nombre;
@@ -23,7 +33,7 @@ public class Empleado {
     @Email
     private String email;
     @NotNull
-    private Double salario;
+    private Float salario;
     private Boolean enActivo;
     @NotNull
     private Genero genero;

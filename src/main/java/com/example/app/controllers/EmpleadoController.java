@@ -2,8 +2,6 @@ package com.example.app.controllers;
 
 import java.util.List;
 
-import javax.validation.Valid;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -18,6 +16,8 @@ import com.example.app.domain.Empleado;
 import com.example.app.domain.Genero;
 import com.example.app.services.EmpleadoService;
 
+import jakarta.validation.Valid;
+
 @Controller
 
 // Para que nos almacene la variable en la sesión y poder acceder a ella
@@ -25,7 +25,7 @@ import com.example.app.services.EmpleadoService;
 
 public class EmpleadoController {
 
-    @Autowired
+    @Autowired(required = true)
     EmpleadoService empleadoService;
 
     // Variable global para almacenar los textos de error
@@ -151,6 +151,21 @@ public class EmpleadoController {
 
     // BUSCADOR
 
+    @GetMapping("/bysalary/{salario}")
+    public String geBySalary(@PathVariable Float salario, Model model) {
+        List<Empleado> empleados = empleadoService.obtenerPorSalarioMayor(salario);
+        System.out.println("Consultando empleados con salario >= " + salario);
+        model.addAttribute("listaEmpleados", empleados);
+        return "listView";
+    }
+
+    @GetMapping("/maxid")
+    public String getMaxId(Model model) {
+        model.addAttribute("empleado", empleadoService.obtenerMaxIdEmpleado());
+        return "listOneView";
+    }
+    
+    
     @GetMapping("/findByName")
     public String showFindByName() {
         return "listView";

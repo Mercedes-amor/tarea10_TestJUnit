@@ -12,10 +12,11 @@
     <h1 class="mb-4">Nuevo empleado</h1>
 
     <form method="post" th:action="@{/add/submit}" th:object="${empleadoForm}" class="card p-4 shadow">
-        <div class="mb-3">
+        <!-- El id ya se autogenera, no debemos introducirlo -->
+        <!-- <div class="mb-3">
             <label for="id" class="form-label">Id:</label>
             <input type="text" id="id" th:field="*{id}" class="form-control" />
-        </div>
+        </div> -->
         <div class="mb-3">
             <label for="nombre" class="form-label">Nombre:</label>
             <input type="text" id="nombre" th:field="*{nombre}" class="form-control" />

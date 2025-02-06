@@ -95,6 +95,11 @@
   class="alert alert-warning">
     <p th:text ="${txtErr}">Texto de error</p>
 </div>
+<a th:href="@{/maxid}">Empleado max id</a><br />
+<label>Filtro Salario</label>
+<input type="text" id="inputSalario"/>
+<button onclick="window.location.href =`/bysalary/` + document.getElementById('inputSalario').value">
+  Filtrar</button>
     <a th:href="@{/}">Inicio</a><br />
   </body>
 </html>
