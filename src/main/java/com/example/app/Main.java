@@ -19,7 +19,7 @@ public class Main {
 
 	public static void main(String[] args) {
 		SpringApplication.run(Main.class, args);
-		System.out.println("Tarea 7 Acceso a datos, Ej01");
+		System.out.println("Tarea 9 API REST");
 	}
 
 	@Bean
