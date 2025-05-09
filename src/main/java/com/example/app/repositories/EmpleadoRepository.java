@@ -19,6 +19,9 @@ public interface EmpleadoRepository extends JpaRepository <Empleado, Long>{
    List<Empleado> findByNombreContainingIgnoreCase(String nombre);
    List<Empleado> findByGenero(Genero genero);
 
+   List<Empleado> findByEnActivoTrue(); //Obtener empleados en activo
+
+
    //Consulta que pide el Empleado que tenga el id más alto (el último)
    @Query ("select e from Empleado e where e.id=(select max(e2.id) from Empleado e2)")
     Empleado obtenerMaxIdEmpleado();

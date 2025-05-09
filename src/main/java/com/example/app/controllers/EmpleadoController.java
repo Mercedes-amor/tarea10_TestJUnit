@@ -34,8 +34,7 @@ public class EmpleadoController {
     @Autowired(required = true)
     EmpleadoService empleadoService;
 
-    // Las rutas deben ser lo más significativas posibles
-    // Cambiamos el "/" y "/list" por "/empleados"
+    //MOSTRAR TODOS
     @GetMapping("/empleados")
     public List<Empleado> showList() {
         // Quitamos todos los model.addAttribute
@@ -47,9 +46,7 @@ public class EmpleadoController {
         return empleadoService.obtenerTodos();
     }
 
-    // Podríamos devolver directamente un Empleado si supiéramos que no hay opción
-    // de nulo.
-    // Pero para gestionar un return null lo que devolvemos es un ResponseEntity<?>
+    // MOSTRAR UN EMPLEADO
     @GetMapping("/empleado/{id}")
     public ResponseEntity<?> showOne(@PathVariable Long id) {
 
@@ -68,34 +65,8 @@ public class EmpleadoController {
         }
     }
 
-    // SE ELIMINA EL Mapping de presentación de formulario,
-    // Los datos ya no llegarán por formulario creado por nosotros
 
-    // @GetMapping("/add")
-    // public String showNew(
-    // @RequestParam(required = false) Integer err,
-    // Model model) {
-
-    // // Para los errores genéricos que llegan por el @Valid
-    // // Como el formato del email o los campos vacíos.
-    // if (err != null) {
-    // model.addAttribute("textErr", "Hubo un error en los datos del formulario");
-    // }
-
-    // // Para los errores que llegan por la excepción lanzada desde el servicio
-    // // Id repetido y salario <18000
-    // if (txtErr != null) {
-    // model.addAttribute("textErr", txtErr);
-    // // Reseteamos la variable
-    // txtErr = null;
-    // }
-    // model.addAttribute("empleadoForm", new Empleado());
-    // return "newFormView";
-    // }
-
-    // Rutas distintas como GET, PUT Y POST pueden tener la misma URL y no generar
-    // conflicto
-    // Ya que al ser verbos la petición entrará en el mapping correspondiente
+    //AÑADIR EMPLEADO
     @PostMapping("/empleado/")
 
     // Añadimos el @RequestBody y eliminamos BindingResult (ya no aplicable)
@@ -120,26 +91,8 @@ public class EmpleadoController {
 
     }
 
-    // NUEVAMENTE ELIMINAMOS EL MAPPING PARA LA PRESENTACIÓN DE FORMULARIO (EDITAR)
-
-    // @GetMapping("/edit/{id}")
-    // public String getEdit(
-    // @PathVariable long id,
-    // @RequestParam(required = false) Integer err,
-    // Model model) {
-
-    // if (err != null) {
-    // model.addAttribute("text2Err", "Hubo un error en los datos actualizados");
-    // }
-
-    // Empleado empleado = empleadoService.obtenerPorId(id);
-    // model.addAttribute("empleadoForm", empleado);
-    // return "editFormView";
-    // }
 
     // EDITAR EMPLEADO
-    // Podríamos usar la misma ruta /empleado/ que en el POST
-    // Al ser verbos distintos (Put y Post), no generaría conflictos
     @PutMapping("/empleado/{id}")
     public ResponseEntity<?> showEdit(@PathVariable Long id,
             @Valid @RequestBody Empleado empleadoForm) {
@@ -167,7 +120,6 @@ public class EmpleadoController {
     }
 
     // BORRAR EMPLEADO
-
     @DeleteMapping("/empleado/{id}")
     public ResponseEntity<?> showDelete(@PathVariable Long id) {
 
@@ -187,6 +139,7 @@ public class EmpleadoController {
 
     // BUSCADORES
 
+    //BÚSQUEDA POR SALARIO
     @GetMapping("/bysalary/{salario}")
     public ResponseEntity<?> geBySalary(@PathVariable Float salario) {
 
@@ -199,6 +152,7 @@ public class EmpleadoController {
         }
     }
 
+    //BÚSQUEDA POR MAXID
     @GetMapping("/maxid")
     public ResponseEntity<?> getMaxId(Model model) {
 
@@ -212,11 +166,7 @@ public class EmpleadoController {
         }
     }
 
-    // @GetMapping("/findByName")
-    // public String showFindByName() {
-    // return "listView";
-    // }
-
+    //BÚSQUEDA POR NOMBRE
     @PostMapping("/findByName")
     public ResponseEntity<?> showFindByName(
             @RequestParam("busqueda") String busqueda) {
