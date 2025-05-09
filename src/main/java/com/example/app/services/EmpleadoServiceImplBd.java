@@ -14,8 +14,8 @@ import com.example.app.repositories.EmpleadoRepository;
 @Service
 @Primary
 public class EmpleadoServiceImplBd implements EmpleadoService {
-    private static Double LIMITE_MIN_SALARIO = 18000D;
-    private static Double LIMITE_MAX_SALARIO = 100000D;
+    private static Float LIMITE_MIN_SALARIO = 1800f;
+    private static Float LIMITE_MAX_SALARIO = 100000f;
 
     @Autowired
     EmpleadoRepository empleadoRepository;

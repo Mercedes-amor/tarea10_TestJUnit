@@ -18,13 +18,16 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.springframework.boot.test.context.SpringBootTest;
 
+import com.example.app.Main;
 import com.example.app.domain.Empleado;
 import com.example.app.domain.Genero;
 import com.example.app.repositories.EmpleadoRepository;
 import com.example.app.services.EmpleadoServiceImplBd;
 
-@SpringBootTest
+@SpringBootTest(classes = Main.class)
 @TestInstance(Lifecycle.PER_CLASS) // import org.junit.jupiter.api
+
+
 
 public class EmpleadoServiceTest {
 
