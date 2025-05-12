@@ -34,7 +34,7 @@ public class EmpleadoController {
     @Autowired(required = true)
     EmpleadoService empleadoService;
 
-    //MOSTRAR TODOS
+    // MOSTRAR TODOS
     @GetMapping("/empleados")
     public List<Empleado> showList() {
         // Quitamos todos los model.addAttribute
@@ -65,8 +65,7 @@ public class EmpleadoController {
         }
     }
 
-
-    //AÑADIR EMPLEADO
+    // AÑADIR EMPLEADO
     @PostMapping("/empleado/")
 
     // Añadimos el @RequestBody y eliminamos BindingResult (ya no aplicable)
@@ -90,7 +89,6 @@ public class EmpleadoController {
         }
 
     }
-
 
     // EDITAR EMPLEADO
     @PutMapping("/empleado/{id}")
@@ -122,24 +120,18 @@ public class EmpleadoController {
     // BORRAR EMPLEADO
     @DeleteMapping("/empleado/{id}")
     public ResponseEntity<?> showDelete(@PathVariable Long id) {
-
-        // Primero buscamos el empleado a eliminar
-        Empleado empleado = empleadoService.obtenerPorId(id);
-
-        // Si NO encontramos el empleado
-        if (empleado == null) {
+        try {
+            Empleado empleado = empleadoService.obtenerPorId(id);
+        } catch (Exception e) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
         }
-
-        // Si encontramos el empleado lo borramos
         empleadoService.eliminarPorId(id);
-        // Código 204
         return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
     }
 
     // BUSCADORES
 
-    //BÚSQUEDA POR SALARIO
+    // BÚSQUEDA POR SALARIO
     @GetMapping("/bysalary/{salario}")
     public ResponseEntity<?> geBySalary(@PathVariable Float salario) {
 
@@ -152,7 +144,7 @@ public class EmpleadoController {
         }
     }
 
-    //BÚSQUEDA POR MAXID
+    // BÚSQUEDA POR MAXID
     @GetMapping("/maxid")
     public ResponseEntity<?> getMaxId(Model model) {
 
@@ -166,7 +158,7 @@ public class EmpleadoController {
         }
     }
 
-    //BÚSQUEDA POR NOMBRE
+    // BÚSQUEDA POR NOMBRE
     @PostMapping("/findByName")
     public ResponseEntity<?> showFindByName(
             @RequestParam("busqueda") String busqueda) {

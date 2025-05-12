@@ -126,8 +126,8 @@ public class EmpleadoControllerTest {
     // Test borrado con error
     @Test
     public void deleteOneEmpleadoTest_Ko() throws Exception {
-        // when(empleadoService.obtenerPorId(999L)).thenThrow(new RuntimeException("Empleado no encontrado"));
-        when(empleadoService.obtenerPorId(999L)).thenReturn(null);
+        when(empleadoService.obtenerPorId(999L)).thenThrow(new RuntimeException("Empleado no encontrado"));
+        // when(empleadoService.obtenerPorId(999L)).thenReturn(null);
 
         mockMvc.perform(delete("/empleado/999") // testear ruta delete
                 .contentType(MediaType.APPLICATION_JSON))
